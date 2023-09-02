@@ -1,0 +1,26 @@
+#### GCC version
+According to line 90 from /include/linux/compiler-gcc.h:
+```
+#define __gcc_header(x) #x
+#define _gcc_header(x) __gcc_header(linux/compiler-gcc##x.h)
+#define gcc_header(x) _gcc_header(x)
+#include gcc_header(__GNUC__)
+```
+That means it includes different header file with different gcc versions.
+
+And there's only four gcc related header files here:
+```
+compiler-gcc.h
+compiler-gcc3.h
+compiler-gcc4.h
+```
+That is, I should use gcc3 or gcc4 to compile the kernel 2.6.
+
+For latest kernel, check the gcc version used to build host linux kernel:
+```
+$ cat /proc/version
+Linux version 6.1.49-1-MANJARO (builduser@fv-az190-941) 
+(gcc (GCC) 13.2.1 20230801, GNU ld (GNU Binutils) 2.41.0) 
+#1 SMP PREEMPT_DYNAMIC Sun Aug 27 23:08:04 UTC 2023
+
+```
