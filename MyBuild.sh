@@ -18,7 +18,8 @@ function config_kernel {
         return 1
     fi
 
-    make menuconfig ARCH=$DEFAULT_ARCH CROSS_COMPILE=$DEFAULT_CROSS_COMPILE $def_config
+    make ARCH=$DEFAULT_ARCH CROSS_COMPILE=$DEFAULT_CROSS_COMPILE $def_config
+    make ARCH=$DEFAULT_ARCH CROSS_COMPILE=$DEFAULT_CROSS_COMPILE menuconfig
     return $?
 }
 

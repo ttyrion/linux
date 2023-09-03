@@ -16,6 +16,9 @@ compiler-gcc4.h
 ```
 That is, I should use gcc3 or gcc4 to compile the kernel 2.6.
 
+为了避免再去编译一个gcc4，我这里换成与内核2.6最接近且能用gcc5编译的内核版本（首次包含compiler-gcc5.h），然后再用gcc5交叉编译内核。
+
+
 For latest kernel, check the gcc version used to build host linux kernel:
 ```
 $ cat /proc/version
@@ -24,3 +27,6 @@ Linux version 6.1.49-1-MANJARO (builduser@fv-az190-941)
 #1 SMP PREEMPT_DYNAMIC Sun Aug 27 23:08:04 UTC 2023
 
 ```
+
+#### file system
+为了能顺利启动内核，还需要挂载一个文件系统。我这里用dd命令创建一个镜像文件，利用busybox制作文件系统。这里关键是要交叉编译busybox，注意交叉编译器的选择，与内核编译器肯定不能相同，要选arm-linux-gnueabi编译器。
