@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# Tested on busybox-1.26.2
+
 DEFAULT_ARCH="arm"
 DEFAULT_CROSS_COMPILE="arm-linux-gnueabi-"
 # default_config="vexpress_defconfig"
