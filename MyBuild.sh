@@ -4,6 +4,7 @@ DEFAULT_ARCH="arm"
 DEFAULT_CROSS_COMPILE="arm-none-eabi-"
 default_config="vexpress_defconfig"
 default_kernel="zImage"
+default_dtbs="dtbs"
 
 export CROSS_COMPILECHAIN=~/nvme0/embeded/toolchain/gcc-arm-none-eabi-5_4-2016
 export PATH=$CROSS_COMPILECHAIN/bin:$PATH:
@@ -36,12 +37,28 @@ function build_kernel {
     return $?
 }
 
+function build_dtbs {
+    echo "build_dtbs starts."
+
+    def_obj=$1
+    if [[ $def_obj == "" ]]
+    then
+        echo "[Error]: build_dtbs needs a object."
+        return 1
+    fi
+    make ARCH=$DEFAULT_ARCH CROSS_COMPILE=$DEFAULT_CROSS_COMPILE $def_obj
+    return $?
+}
+
 if [[ $1 == "config" ]]
 then
     config_kernel $default_config
 elif [ $1 == "kernel" ]
 then
     build_kernel $default_kernel
+elif [ $1 == "dtbs" ]
+then
+    build_dtbs $default_dtbs
 else
     echo "wrong parameters"
 fi
